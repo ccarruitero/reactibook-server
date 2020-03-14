@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
       res.status(201).json({ token: user.generateToken() });
     })
     .catch((error) => {
-      res.status(400).json({ error: `${error.name}: ${error.message}` });
+      res.status(422).json({ error: `${error.name}: ${error.message}` });
     });
 });
 

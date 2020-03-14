@@ -25,13 +25,13 @@ describe('create user', () => {
   });
   test('should fail without parameters', async () => {
     const response = await request(server).post('/users');
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(422);
     expect(response.body.error).toContain('ValidationError');
   });
   test('should fail without password parameter', async () => {
     const response = await request(server).post('/users')
       .send({ email: params.email });
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(422);
     expect(response.body.error).toContain('ValidationError');
   });
 });
