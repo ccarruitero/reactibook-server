@@ -8,7 +8,7 @@ const routes = require('./routes');
 app.use(express.json());
 
 app.use('/users', routes.users);
-// app.use('/sessions', routes.sessions)
+app.use('/auth', routes.sessions);
 // app.use('/posts', routes.posts)
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
