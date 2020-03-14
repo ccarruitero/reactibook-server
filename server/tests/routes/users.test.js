@@ -18,9 +18,10 @@ describe('create user', () => {
     const response = await request(server).post('/users')
       .send({ email: params.email, password: params.password });
     expect(response.statusCode).toBe(201);
-    const { email, password } = response.body;
-    expect(email).toBe(params.email);
+    const { email, password, token } = response.body;
+    expect(email).toBe(undefined);
     expect(password).toBe(undefined);
+    expect(token).not.toBe(undefined);
   });
   test('should fail without parameters', async () => {
     const response = await request(server).post('/users');

@@ -13,6 +13,7 @@ module.exports = {
     describe: true,
     test: true,
     expect: true,
+    beforeEach: true,
     afterEach: true,
     afterAll: true,
   },

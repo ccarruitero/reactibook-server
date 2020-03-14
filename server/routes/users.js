@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
   newUser.setPassword(req.body.password);
   await newUser.save()
     .then((user) => {
-      res.status(201).json(user);
+      res.status(201).json({ token: user.generateToken() });
     })
     .catch((error) => {
       res.status(400).json({ error: `${error.name}: ${error.message}` });

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -12,10 +13,6 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   passwordSalt: String,
-  authToken: {
-    type: String,
-    unique: true,
-  },
 },
 {
   toJSON: {
@@ -40,6 +37,10 @@ userSchema.method({
   setAuthToken() {
     this.authToken = crypto.randomBytes(16).toString('hex');
     this.save();
+  },
+  generateToken() {
+    const token = jwt.sign(this.toJSON(), process.env.JWT_SECRET, { expiresIn: '5h' });
+    return token;
   },
 });
 

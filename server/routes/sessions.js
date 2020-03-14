@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && user.validatePassword(password)) {
-    res.status(200).json(user);
+    res.status(200).json({ token: user.generateToken() });
   } else {
     res.status(401).json({ error: 'Invalid email or password' });
   }

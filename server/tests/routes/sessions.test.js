@@ -20,8 +20,8 @@ afterEach(() => {
 });
 
 afterAll(async (done) => {
-  await server.close(done);
   await mongoose.disconnect();
+  await server.close(done);
 });
 
 describe('new session', () => {
@@ -29,9 +29,10 @@ describe('new session', () => {
     const response = await request(server).post('/auth')
       .send({ email: params.email, password: params.password });
     expect(response.statusCode).toBe(200);
-    const { email, password } = response.body;
-    expect(email).toBe(params.email);
+    const { email, password, token } = response.body;
+    expect(email).toBe(undefined);
     expect(password).toBe(undefined);
+    expect(token).not.toBe(undefined);
   });
   test('should fail with invalid email', async () => {
     const response = await request(server).post('/auth')
