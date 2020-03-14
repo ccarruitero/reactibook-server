@@ -7,25 +7,37 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   passwordSalt: String,
-  passwordHash: String,
   authToken: {
     type: String,
     unique: true,
   },
+},
+{
+  toJSON: {
+    transform(doc, ret) {
+      delete ret.password;
+      delete ret.passwordSalt;
+      return ret;
+    },
+  },
 });
 
 userSchema.method({
-  setPassword: (password) => {
+  setPassword(password) {
     if (!password) return;
     this.passwordSalt = crypto.randomBytes(16).toString('hex');
-    this.passwordHash = crypto.pbkdf2Sync(password, this.passwordSalt, 1000, 32, 'sha512').toString('hex');
+    this.password = crypto.pbkdf2Sync(password, this.passwordSalt, 1000, 32, 'sha512').toString('hex');
   },
-  validatePassword: (password) => {
+  validatePassword(password) {
     const hash = crypto.pbkdf2Sync(password, this.passwordSalt, 1000, 32, 'sha512').toString('hex');
-    return this.passwordHash === hash;
+    return this.password === hash;
   },
-  setAuthToken: () => {
+  setAuthToken() {
     this.authToken = crypto.randomBytes(16).toString('hex');
     this.save();
   },

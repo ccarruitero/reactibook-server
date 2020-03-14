@@ -11,9 +11,10 @@ afterAll(async (done) => {
   await mongoose.disconnect();
 });
 
+const params = { email: 'user@example.com', password: 'strongpassword123' };
+
 describe('create user', () => {
   test('should success with valid parameters', async () => {
-    const params = { email: 'user@example.com', password: 'strongpassword123' };
     const response = await request(server).post('/users')
       .send({ email: params.email, password: params.password });
     expect(response.statusCode).toBe(201);
@@ -21,8 +22,14 @@ describe('create user', () => {
     expect(email).toBe(params.email);
     expect(password).toBe(undefined);
   });
-  test('should fail with invalid parameters', async () => {
+  test('should fail without parameters', async () => {
     const response = await request(server).post('/users');
+    expect(response.statusCode).toBe(400);
+    expect(response.body.error).toContain('ValidationError');
+  });
+  test('should fail without password parameter', async () => {
+    const response = await request(server).post('/users')
+      .send({ email: params.email });
     expect(response.statusCode).toBe(400);
     expect(response.body.error).toContain('ValidationError');
   });
