@@ -9,9 +9,13 @@ app.use(express.json());
 
 app.use('/users', routes.users);
 app.use('/auth', routes.sessions);
-// app.use('/posts', routes.posts)
+app.use('/posts', routes.posts);
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
+const mongooseOptions = {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+};
+mongoose.connect(process.env.DATABASE_URL, mongooseOptions);
 
 // eslint-disable-next-line no-console
 const server = app.listen(port, () => console.log(`Server running on port ${port}`));
