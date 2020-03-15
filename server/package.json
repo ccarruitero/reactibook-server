@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node -r dotenv/config index.js",
-    "test": "npm run lint && jest"
+    "test": "npm run lint && jest --runInBand"
   },
   "repository": {
     "type": "git",
