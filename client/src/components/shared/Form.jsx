@@ -77,7 +77,7 @@ const Form = ({ confirmation, header }) => {
       if ((key === 'passwordConfirmation') & !confirmation) {
         return;
       }
-      if (!isValid(key, value)) {
+      if (!isValid(key, value, values)) {
         initialState[key] = true
       }
     });
@@ -85,7 +85,7 @@ const Form = ({ confirmation, header }) => {
   });
 
   const validate = (field, fieldValue) => {
-    if (isValid(field, fieldValue)) {
+    if (isValid(field, fieldValue, values)) {
       const newErrors = Object.assign(
         {},
         ...Object.entries(errors)
