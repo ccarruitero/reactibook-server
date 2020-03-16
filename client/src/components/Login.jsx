@@ -1,9 +1,16 @@
-import React from 'react';
+import React, {Fragment} from 'react';
+import { Link } from 'react-router-dom';
 import Form from './shared/Form';
 
 const Login = () => {
   return (
-    <Form header='Login' />
+    <Fragment>
+      <Form header='Login' />
+      <div>
+        Dont have an account.
+        <Link to='/signup'>Sign up here</Link>
+      </div>
+    </Fragment>
   );
 }
 
