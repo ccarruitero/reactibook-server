@@ -1,29 +1,28 @@
 module.exports = {
   env: {
     browser: true,
+    commonjs: true,
     es6: true,
   },
   extends: [
-    'plugin:react/recommended',
-    'airbnb',
+    'airbnb-base',
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
+    jest: true,
     describe: true,
     test: true,
     expect: true,
+    beforeEach: true,
+    beforeAll: true,
+    afterEach: true,
+    afterAll: true,
   },
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
     ecmaVersion: 2018,
-    sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
   rules: {
+    'no-param-reassign': 0
   },
 };

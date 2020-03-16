@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors')
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -9,8 +9,8 @@ const routes = require('./routes');
 const corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200,
-}
-app.use(cors(corsOptions))
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
