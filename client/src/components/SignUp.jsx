@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import Form from './shared/Form';
+import { signUp } from '../api/reactibookAPI';
 
 const SignUp = () => {
   return (
@@ -8,6 +9,7 @@ const SignUp = () => {
       <Form
         confirmation={true}
         header='Sign Up'
+        onSubmit={signUp}
       />
       <div>
         Already have an account.

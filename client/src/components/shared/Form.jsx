@@ -7,7 +7,11 @@ import {
   Button,
 } from '@material-ui/core';
 import { styled, makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux'
+import {withRouter} from 'react-router-dom';
 import isValid from '../../utils/validation';
+import { setAuth } from '../../reducers/authSlice'
+import ErrorAlert from '../ErrorAlert';
 
 const StyledFormControl = styled(FormControl) ({
   width: '50%',
@@ -65,7 +69,9 @@ const PasswordField = ({ name, handleChange, ...rest}) => (
   />
 );
 
-const Form = ({ confirmation, header }) => {
+const Form = ({ confirmation, header, onSubmit, ...props }) => {
+  const dispatch = useDispatch()
+
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -83,6 +89,7 @@ const Form = ({ confirmation, header }) => {
     });
     return initialState;
   });
+  const [errorMessage, setErrorMessage] = useState('');
 
   const validate = (field, fieldValue) => {
     if (isValid(field, fieldValue, values)) {
@@ -107,14 +114,25 @@ const Form = ({ confirmation, header }) => {
     return Object.keys(errors).length;
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     if (errorsCount() === 0) {
-      // call to api
+      const { token, error } = await onSubmit(values);
+
+      if (token) {
+        dispatch(setAuth({ token }));
+        localStorage.setItem('authToken', token);
+        props.history.push('/');
+      } else {
+        setErrorMessage(error);
+      }
     }
   };
 
   return (
     <Fragment>
+      { errorMessage &&
+        <ErrorAlert message={errorMessage} onClose={() => setErrorMessage('')}/>
+      }
       <AppBar position='static'>
         <Typography variant='h4'>
           { header }
@@ -151,4 +169,4 @@ const Form = ({ confirmation, header }) => {
   );
 }
 
-export default Form;
+export default withRouter(Form);
