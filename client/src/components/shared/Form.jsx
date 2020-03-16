@@ -2,8 +2,6 @@ import React, { Fragment, useState } from 'react';
 import {
   TextField,
   FormControl,
-  AppBar,
-  Typography,
   Button,
 } from '@material-ui/core';
 import { styled, makeStyles } from '@material-ui/core/styles';
@@ -12,6 +10,7 @@ import {withRouter} from 'react-router-dom';
 import isValid from '../../utils/validation';
 import { setAuth } from '../../reducers/authSlice'
 import ErrorAlert from '../ErrorAlert';
+import Header from './Header';
 
 const StyledFormControl = styled(FormControl) ({
   width: '50%',
@@ -133,11 +132,7 @@ const Form = ({ confirmation, header, onSubmit, ...props }) => {
       { errorMessage &&
         <ErrorAlert message={errorMessage} onClose={() => setErrorMessage('')}/>
       }
-      <AppBar position='static'>
-        <Typography variant='h4'>
-          { header }
-        </Typography>
-      </AppBar>
+      <Header title={header}/>
       <StyledFormControl>
         <InputField
           name='email'

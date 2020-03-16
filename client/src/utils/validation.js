@@ -1,4 +1,4 @@
-const isNotEmpty = (fieldValue) => fieldValue.length > 0;
+export const isNotEmpty = (fieldValue) => fieldValue.length > 0;
 
 const isValid = (fieldName, fieldValue, valuesObj = {}) => {
   switch (fieldName) {

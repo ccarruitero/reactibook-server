@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
+import Header from './shared/Header';
+import EditablePost from './EditablePost';
 
 const Dashboard = () => {
   return (
-    <h1>
-      Dashboard
-    </h1>
+    <Fragment>
+      <Header
+        title='Dashboard'
+      />
+      <EditablePost />
+    </Fragment> 
   );
 };
 
