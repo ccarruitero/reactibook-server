@@ -7,7 +7,7 @@ import {
   Button,
 } from '@material-ui/core';
 import { styled, makeStyles } from '@material-ui/core/styles';
-import { isValid } from '../../utils/validation';
+import isValid from '../../utils/validation';
 
 const StyledFormControl = styled(FormControl) ({
   width: '50%',

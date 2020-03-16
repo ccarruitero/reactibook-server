@@ -1,8 +1,6 @@
-const isNotEmpty = (fieldValue) => {
-  return fieldValue.length > 0;
-}
+const isNotEmpty = (fieldValue) => fieldValue.length > 0;
 
-export const isValid = (fieldName, fieldValue) => {
+const isValid = (fieldName, fieldValue) => {
   switch (fieldName) {
     case 'email':
       return isNotEmpty(fieldValue) && /\w+@\w+\.\w/.test(fieldValue);
@@ -10,3 +8,5 @@ export const isValid = (fieldName, fieldValue) => {
       return isNotEmpty(fieldValue);
   }
 };
+
+export default isValid;
